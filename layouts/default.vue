@@ -64,6 +64,10 @@
         user-select: none
         font-weight: 900
         width: 100%
+        transition: .4s
+        &:hover
+            background-color: $blue
+            color: $yellow
 
     .noselect
         user-select: none

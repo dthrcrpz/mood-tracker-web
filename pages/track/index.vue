@@ -180,10 +180,14 @@
                                 cursor: pointer
                                 transition: .4s
                                 user-select: none
+                                transform: scale(1)
+                                &:hover
+                                    transform: scale(1.01)
                                 &.active, &:active
                                     background-color: $teal
                                     color: $blue
                                     font-weight: 700
+                                    transform: scale(1.01)
                 .navigation
                     display: flex
                     justify-content: flex-end
@@ -196,11 +200,20 @@
                         &.disabled
                             opacity: .4
                             cursor: not-allowed
+                        &.next
+                            &:hover
+                                color: $yellow
+                        &.prev
+                            border: 1px solid $red
+                            background-color: $red
+                            &:hover
+                                color: $red
+                                background-color: $blue
                         &.submit
                             border: 1px solid $teal
                             background-color: $teal
                             max-width: 180px
-                        &.prev
-                            border: 1px solid $red
-                            background-color: $red
+                            &:hover
+                                color: $teal
+                                background-color: $blue
 </style>
