@@ -228,7 +228,7 @@
 	.validation-errors
 		position: absolute
 		top: calc(100% + -4px)
-		background: #ff5757
+		background: $red
 		color: #fff
 		font-size: 13px
 		z-index: 3

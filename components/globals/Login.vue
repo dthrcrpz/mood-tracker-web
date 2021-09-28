@@ -95,4 +95,7 @@
 			padding: 10px
 			font-family: Lato
 			font-size: 20px
+		.button
+			background-color: $yellow
+			border: 1px solid $yellow
 </style>

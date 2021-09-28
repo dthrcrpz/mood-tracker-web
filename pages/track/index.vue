@@ -17,7 +17,7 @@
 					</div>
 				</div>
 				<div class="navigation">
-					<button class="button back" v-if="computedQuestions.activeKey > 0" @click="navigate('prev')">Prev</button>
+					<button class="button prev" v-if="computedQuestions.activeKey > 0" @click="navigate('prev')">Prev</button>
 					<button :class="{'button': true, 'next': true, 'disabled': !computedQuestions.chosen}" @click="navigate('next')" v-if="computedQuestions.activeKey < (questions.length - 1)">Next</button>
 					<button :class="{'button': true, 'submit': true, 'disabled': !computedQuestions.chosen}" @click="navigate('submit')" v-if="computedQuestions.activeKey == (questions.length - 1)">Submit Answers</button>
 				</div>
@@ -197,7 +197,14 @@
 						max-width: 180px
 						width: 100%
 						margin-left: 10px
+						font-weight: 900
 						&.disabled
 							opacity: .4
 							cursor: not-allowed
+						&.next
+							border: 1px solid $yellow
+							background-color: $yellow
+						&.prev
+							border: 1px solid $red
+							background-color: $red
 </style>
