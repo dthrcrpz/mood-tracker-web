@@ -65,6 +65,7 @@
 		color: $blue
 		font-family: Lato
 		border: 1px solid $teal
+		user-select: none
 
 	.noselect
 		user-select: none
