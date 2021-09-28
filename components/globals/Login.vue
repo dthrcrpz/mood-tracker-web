@@ -8,8 +8,12 @@
 						<input type="text" placeholder="Email" name="email" v-model="registerForm.email">
 						<transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
 					</ValidationProvider>
-					<ValidationProvider name="alias" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true }">
-						<input type="text" placeholder="Alias" name="alias" v-model="registerForm.alias">
+					<ValidationProvider name="first_name" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true }">
+						<input type="text" placeholder="First Name" name="first_name" v-model="registerForm.firstName">
+						<transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
+					</ValidationProvider>
+					<ValidationProvider name="last_name" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true }">
+						<input type="text" placeholder="Last Name" name="last_name" v-model="registerForm.lastName">
 						<transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
 					</ValidationProvider>
 					<ValidationProvider name="password" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true }" vid="password">
@@ -53,7 +57,8 @@
 			action: 'login',
 			registerForm: {
 				email: '',
-				alias: '',
+				firstName: '',
+				lastName: '',
 				password: '',
 				password_confirmation: ''
 			},

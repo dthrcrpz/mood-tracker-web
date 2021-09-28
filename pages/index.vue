@@ -45,9 +45,10 @@
 				img
 					max-width: 150px
 					width: 100%
-					box-shadow: 0 0 11px $teal
+					box-shadow: 0 0 11px rgb(92 224 216)
 					border-radius: 50%
 					margin-bottom: 15px
+					animation: dimming_shadow .4s infinite alternate
 				p
 					text-align: center
 					width: 100%

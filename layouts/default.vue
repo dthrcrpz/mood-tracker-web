@@ -15,7 +15,7 @@
 
 <style lang="sass">
 	@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap')
-	@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap')
+	// @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap')
 	@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap')
 
 	@font-face
