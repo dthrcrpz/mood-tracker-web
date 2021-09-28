@@ -66,9 +66,14 @@ export default {
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    icon: {
+      source: '@/static/icon.png',
+      fileName: 'icon.png',
+    },
     manifest: {
       name: 'Mood Tracker',
-      lang: 'en'
+      lang: 'en',
+      description: 'Track your mood & get assistance',
     },
     meta: {
       name: 'Mood Tracker',
