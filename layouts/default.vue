@@ -38,6 +38,7 @@
 		background-image: url('/images/background.svg')
 		background-size: cover
 		background-position: center
+		min-height: 100vh
 
 	*, *:before, *:after
 		box-sizing: inherit

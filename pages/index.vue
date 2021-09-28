@@ -29,6 +29,7 @@
 <style scoped lang="sass">
 	.page-index
 		.container
+			padding-top: 40px
 			padding-bottom: 70px
 			section
 				.title

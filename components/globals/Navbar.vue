@@ -2,7 +2,7 @@
 	<nav>
 		<div class="container">
 			<div class="col logo-wrapper">
-				<nuxt-link class="logo" to="/">mood-tracker</nuxt-link>
+				<nuxt-link class="logo" to="/">mood-tracker-something</nuxt-link>
 			</div>
 			<div class="col links-wrapper">
 				<!-- <a href="javascript:void(0)">about me</a> -->
