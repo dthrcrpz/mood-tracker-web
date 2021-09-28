@@ -3,23 +3,23 @@
 		<div class="container">
 			<div class="track-box">
 				<div class="progress-container">
-					<div class="numbers">4/10</div>
+					<div class="numbers">{{ computedQuestions.activeKey + 1 }}/{{ computedQuestions.total }}</div>
 					<div class="bar">
-						<div class="progress" style="width: 40%"></div>
+						<div class="progress" :style="`width: ${computedQuestions.progress}`"></div>
 					</div>
 				</div>
 				<div class="q-a" v-for="(question, key) in questions" :key="key">
-					<div class="wrapper" v-if="question.active">
+					<div class="wrapper" v-if="computedQuestions.activeKey == key">
 						<p class="question">{{ question.question }}</p>
 						<ol class="choices" type="A">
 							<li :class="{ 'active': choice.selected }" v-for="(choice, key) in question.choices" :key="key" @click="selectChoice(question, choice)">{{ choice.value }}</li>
 						</ol>
-						<div class="navigation">
-							<button class="button back" v-if="key > 0" @click="navigate('prev', key, question)">Prev</button>
-							<button :class="{'button': true, 'next': true, 'disabled': !question.chosen}" @click="navigate('next', key, question)" v-if="(key + 1) < questions.length">Next</button>
-							<button :class="{'button': true, 'submit': true, 'disabled': !question.chosen}" @click="navigate('next', key, question)" v-if="(key + 1) == questions.length">Submit Answers</button>
-						</div>
 					</div>
+				</div>
+				<div class="navigation">
+					<button class="button back" v-if="computedQuestions.activeKey > 0" @click="navigate('prev')">Prev</button>
+					<button :class="{'button': true, 'next': true, 'disabled': !computedQuestions.chosen}" @click="navigate('next')" v-if="computedQuestions.activeKey < (questions.length - 1)">Next</button>
+					<button :class="{'button': true, 'submit': true, 'disabled': !computedQuestions.chosen}" @click="navigate('submit')" v-if="computedQuestions.activeKey == (questions.length - 1)">Submit Answers</button>
 				</div>
 			</div>
 		</div>
@@ -33,7 +33,6 @@
 				{
 					question: 'Do you feel like killing someone today?',
 					active: true,
-					chosen: false,
 					choices: [
 						{ value: 'Super Yes!', selected: false },
 						{ value: 'Kind of', selected: false },
@@ -44,7 +43,6 @@
 				{
 					question: 'Are you in the mood to socialize right now?',
 					active: false,
-					chosen: false,
 					choices: [
 						{ value: 'Super Yes!', selected: false },
 						{ value: 'Kind of', selected: false },
@@ -55,7 +53,6 @@
 				{
 					question: 'Are doggos cute?',
 					active: false,
-					chosen: false,
 					choices: [
 						{ value: 'Of course, the only answer is yes', selected: false },
 						{ value: 'Same with A', selected: false },
@@ -65,29 +62,72 @@
 				},
 			]
 		}),
-		methods: {
-			navigate (action, key, question) {
-				if (!question.chosen) {
-					return
+		computed: {
+			computedQuestions () {
+				let activeKey = 0
+				let chosen = false
+
+				this.questions.forEach((question, key) => {
+					if (question.active) {
+						activeKey = key
+
+						let hasChosen = false
+						question.choices.forEach((choice, choiceKey) => {
+							if (choice.selected) {
+								hasChosen = true
+							}
+						})
+
+						chosen = hasChosen
+					} else {
+						activeKey = activeKey
+					}
+				})
+
+				let total = this.questions.length
+				let progress = ((activeKey + 1) / total) * 100
+
+				return {
+					activeKey: activeKey,
+					chosen: chosen,
+					total: total,
+					progress: `${progress}%`
 				}
+			}
+		},
+		methods: {
+			navigate (action) {
+				let targetKey = null
 
 				switch (action) {
 					case 'prev':
-						this.questions[key].active = false
-						this.questions[key - 1].active = true
+						targetKey = this.computedQuestions.activeKey - 1
+						this.questions[targetKey].active = true
+						this.disableQuestionsExcept(targetKey)
 						break
 					case 'next':
-						this.questions[key].active = false
-						this.questions[key + 1].active = true
+						if (!this.computedQuestions.chosen) {
+							return
+						}
+
+						targetKey = this.computedQuestions.activeKey + 1
+						this.questions[targetKey].active = true
+						this.disableQuestionsExcept(targetKey)
 						break
 				}
+			},
+			disableQuestionsExcept(targetKey) {
+				this.questions.forEach((question, key) => {
+					if (key != targetKey) {
+						question.active = false
+					}
+				})
 			},
 			selectChoice (question, choice) {
 				question.choices.forEach((item, key) => {
 					item.selected = false
 				})
 				
-				question.chosen = true
 				choice.selected = true
 			}
 		}
@@ -143,21 +183,21 @@
 									background-color: $teal
 									color: $blue
 									font-weight: 700
-						.navigation
-							display: flex
-							justify-content: flex-end
-							.button
-								width: unset
-								background-color: $teal
-								font-size: 18px
-								padding: 10px
-								color: $blue
-								font-family: Lato
-								border: 1px solid $teal
-								max-width: 180px
-								width: 100%
-								margin-left: 10px
-								&.disabled
-									opacity: .4
-									cursor: not-allowed
+				.navigation
+					display: flex
+					justify-content: flex-end
+					.button
+						width: unset
+						background-color: $teal
+						font-size: 18px
+						padding: 10px
+						color: $blue
+						font-family: Lato
+						border: 1px solid $teal
+						max-width: 180px
+						width: 100%
+						margin-left: 10px
+						&.disabled
+							opacity: .4
+							cursor: not-allowed
 </style>
