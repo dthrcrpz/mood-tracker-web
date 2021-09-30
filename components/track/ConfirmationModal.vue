@@ -7,7 +7,7 @@
             <div class="footer">
                 <div class="buttons">
                     <button class="button red" @click="close()">No</button>
-                    <button class="button teal">Yes</button>
+                    <button class="button teal" @click="confirm()">Yes</button>
                 </div>
             </div>
         </div>
@@ -17,6 +17,9 @@
 <script>
     export default {
         methods: {
+            confirm () {
+                this.close()
+            },
             close () {
                 this.$store.commit('globals/setShowModal', false)
                 this.$store.commit('track/setShowConfirmationModal', false)
@@ -28,6 +31,7 @@
 <style scoped lang="sass">
     .modal
         max-width: 600px
+        margin: 110px ​auto 0
         .header
             padding: 20px
             .centered-title
