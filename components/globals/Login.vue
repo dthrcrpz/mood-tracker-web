@@ -45,8 +45,17 @@
                     <div class="form-group">
                         <button class="button" type="submit">Login</button>
                     </div>
+                    <a class="forgot-password" href="javascript:void(0)">Forgot Password</a>
                 </form>
             </ValidationObserver>
+            <div class="or">or</div>
+            <div class="social-media-login">
+                <p class="title">Login with your social media account</p>
+                <a href="javascript:void(0)" class="sm-login fb">
+                    <svg viewBox="0 0 56.693 56.693" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="M40.43 21.739h-7.645v-5.014c0-1.883 1.248-2.322 2.127-2.322h5.395V6.125l-7.43-.029c-8.248 0-10.125 6.174-10.125 10.125v5.518h-4.77v8.53h4.77v24.137h10.033V30.269h6.77l.875-8.53z" fill="#ffffff" class="fill-000000"></path></svg>
+                    <span>Facebook</span>
+                </a>
+            </div>
         </template>
     </div>
 </template>
@@ -95,4 +104,59 @@
             padding: 10px
             font-family: Lato
             font-size: 20px
+    .forgot-password
+        display: block
+        margin: 5px auto 0
+        text-align: center
+        width: 100%
+        font-size: 14px
+    .or
+        width: 100%
+        position: relative
+        padding: 0 10px
+        background-color: $blue
+        text-align: center
+        margin-top: 20px
+        &::before
+            content: ''
+            position: absolute
+            height: 2px
+            background-color: lighten($blue, 10%)
+            width: 47%
+            top: 0
+            bottom: 0
+            margin: auto
+            right: 0
+        &::after
+            content: ''
+            position: absolute
+            height: 2px
+            background-color: lighten($blue, 10%)
+            width: 47%
+            top: 0
+            bottom: 0
+            margin: auto
+            left: 0
+    .social-media-login
+        .title
+            margin: auto
+            text-align: center
+            margin: 20px auto 10px
+        .sm-login
+            border-radius: 3px
+            display: flex
+            flex-flow: row wrap
+            padding: 10px
+            max-width: 150px
+            width: 100%
+            margin: auto
+            color: #fff
+            align-items: center
+            svg
+                flex: 0 0 25px
+            span
+                flex: auto
+                text-align: center
+            &.fb
+                background-color: #3b5998
 </style>

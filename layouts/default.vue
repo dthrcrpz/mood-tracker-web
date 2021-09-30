@@ -166,27 +166,27 @@
 
     /*** Works on common browsers ***/
     ::selection  
-        background-color: $blue
-        color: #fff
+        background-color: $teal
+        color: $blue
 
     /*** Mozilla based browsers ***/
     ::-moz-selection  
-        background-color: $blue
-        color: #fff
+        background-color: $teal
+        color: $blue
 
     /***For Other Browsers ***/
     ::-o-selection  
-        background-color: $blue
-        color: #fff
+        background-color: $teal
+        color: $blue
 
     ::-ms-selection  
-        background-color: $blue
-        color: #fff
+        background-color: $teal
+        color: $blue
 
     /*** For Webkit ***/
     ::-webkit-selection  
-        background-color: $blue
-        color: #fff
+        background-color: $teal
+        color: $blue
     /**	End */
 
     .section-title
