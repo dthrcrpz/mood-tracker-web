@@ -17,9 +17,9 @@
                     </div>
                 </div>
                 <div class="navigation">
-                    <button class="button prev" v-if="computedQuestions.activeKey > 0" @click="navigate('prev')">Prev</button>
-                    <button :class="{'button': true, 'next': true, 'disabled': !computedQuestions.chosen}" @click="navigate('next')" v-if="computedQuestions.activeKey < (questions.length - 1)">Next</button>
-                    <button :class="{'button': true, 'submit': true, 'disabled': !computedQuestions.chosen}" @click="navigate('submit')" v-if="computedQuestions.activeKey == (questions.length - 1)">Submit Answers</button>
+                    <button class="button red" v-if="computedQuestions.activeKey > 0" @click="navigate('prev')">Prev</button>
+                    <button :class="{'button': true, 'yellow': true, 'disabled': !computedQuestions.chosen}" @click="navigate('next')" v-if="computedQuestions.activeKey < (questions.length - 1)">Next</button>
+                    <button :class="{'button': true, 'teal': true, 'disabled': !computedQuestions.chosen}" @click="navigate('submit')" v-if="computedQuestions.activeKey == (questions.length - 1)">Submit Answers</button>
                 </div>
             </div>
         </div>
@@ -200,20 +200,6 @@
                         &.disabled
                             opacity: .4
                             cursor: not-allowed
-                        &.next
-                            &:hover
-                                color: $yellow
-                        &.prev
-                            border: 1px solid $red
-                            background-color: $red
-                            &:hover
-                                color: $red
-                                background-color: $blue
                         &.submit
-                            border: 1px solid $teal
-                            background-color: $teal
                             max-width: 180px
-                            &:hover
-                                color: $teal
-                                background-color: $blue
 </style>

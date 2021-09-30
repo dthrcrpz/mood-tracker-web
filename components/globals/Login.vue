@@ -43,7 +43,7 @@
                         <transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
                     </ValidationProvider>
                     <div class="form-group">
-                        <button class="button" type="submit">Login</button>
+                        <button class="button yellow" type="submit">Login</button>
                     </div>
                     <a class="forgot-password" href="javascript:void(0)">Forgot Password</a>
                 </form>
@@ -110,6 +110,7 @@
         text-align: center
         width: 100%
         font-size: 14px
+        text-decoration: underline
     .or
         width: 100%
         position: relative

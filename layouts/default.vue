@@ -2,13 +2,38 @@
     <div>
         <Navbar/>
         <Nuxt/>
+        
+        <transition name="fade">
+            <ModalBackground v-if="showModal"/>
+        </transition>
+        <ModalTemplate/>
     </div>
 </template>
 
 <script>
+	import { mapGetters, mapMutations } from 'vuex'
+
     export default {
         components: {
             Navbar: () => import('~/components/globals/Navbar'),
+            ModalBackground: () => import('~/components/globals/ModalBackground'),
+            ModalTemplate: () => import('~/components/globals/ModalTemplate'),
+        },
+        computed: {
+            ...mapGetters({
+                showModal: 'globals/getShowModal'
+            })
+        },
+        methods: {
+            ...mapMutations({
+                setShowModal: 'globals/setShowModal'
+            })
+        },
+        mounted () {
+            let me = this
+            setTimeout(() => {
+                me.setShowModal(true)
+            }, 1000);
         }
     }
 </script>
@@ -68,6 +93,24 @@
         &:hover
             background-color: $blue
             color: $yellow
+        &.red
+            border: 1px solid $red
+            background-color: $red
+            &:hover
+                color: $red
+                background-color: $blue
+        &.teal
+            border: 1px solid $teal
+            background-color: $teal
+            &:hover
+                color: $teal
+                background-color: $blue
+        &.yellow
+            border: 1px solid $yellow
+            background-color: $yellow
+            &:hover
+                color: $yellow
+                background-color: $blue
 
     .noselect
         user-select: none
@@ -107,7 +150,7 @@
         right: 0
         left: 0
         bottom: 0
-        background-color: rgba(0, 0, 0, 0.5)
+        background-color: rgba(0, 0, 0, 0.7)
         max-height: 100vh
         overflow-y: auto
         backdrop-filter: blur(1px)
@@ -123,6 +166,7 @@
         z-index: 200
         overflow-y: auto
         .modal
+            border-radius: 3px
             z-index: 200
             width: 100%
             display: table
@@ -130,9 +174,8 @@
             left: 0
             right: 0
             margin: 6% auto 0
-            background-color: rgba(255, 255, 255, 0.8)
-            box-shadow: 0 0 11px rgba(0, 0, 0, 0.5)
-            backdrop-filter: blur(5px)
+            background-color: $blue
+            box-shadow: 1px 2px 11px $teal
 
     .btt
         position: fixed
