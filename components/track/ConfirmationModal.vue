@@ -1,6 +1,6 @@
 <template>
     <div class="modal-container">
-        <div class="modal">
+        <div class="modal" v-click-outside="close">
             <div class="header">
                 <p class="centered-title">Submit the answers now?</p>
             </div>
