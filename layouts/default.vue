@@ -6,7 +6,6 @@
         <transition name="fade">
             <ModalBackground v-if="showModal"/>
         </transition>
-        <ModalTemplate/>
     </div>
 </template>
 
@@ -17,7 +16,6 @@
         components: {
             Navbar: () => import('~/components/globals/Navbar'),
             ModalBackground: () => import('~/components/globals/ModalBackground'),
-            ModalTemplate: () => import('~/components/globals/ModalTemplate'),
         },
         computed: {
             ...mapGetters({
@@ -28,12 +26,6 @@
             ...mapMutations({
                 setShowModal: 'globals/setShowModal'
             })
-        },
-        mounted () {
-            let me = this
-            setTimeout(() => {
-                me.setShowModal(true)
-            }, 1000);
         }
     }
 </script>
@@ -356,19 +348,19 @@
 
     /* width */
     ::-webkit-scrollbar
-        width: 10px
+        width: 7px
 
     /* Track */
     ::-webkit-scrollbar-track
-        background: $blue
+        background: lighten($blue, 10%)
     
     /* Handle */
     ::-webkit-scrollbar-thumb
-        background: $blue
+        background: $teal
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover
-        background: $blue
+        background: $teal
 
     .pre-load
         opacity: 0

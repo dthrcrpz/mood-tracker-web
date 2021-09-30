@@ -2,26 +2,28 @@
     <div class="modal-container">
         <div class="modal">
             <div class="header">
-                <p class="centered-title">Centered title</p>
-            </div>
-            <div class="body">
-                aaaaa <br>
-                aaaaa <br>
-                aaaaa <br>
-                aaaaa <br>
-                aaaaa <br>
-                aaaaa <br>
-                aaaaa <br>
+                <p class="centered-title">Submit the answers now?</p>
             </div>
             <div class="footer">
                 <div class="buttons">
-                    <button class="button red">Cancel</button>
-                    <button class="button teal">Confirm</button>
+                    <button class="button red" @click="close()">No</button>
+                    <button class="button teal">Yes</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        methods: {
+            close () {
+                this.$store.commit('globals/setShowModal', false)
+                this.$store.commit('track/setShowConfirmationModal', false)
+            }
+        }
+    }
+</script>
 
 <style scoped lang="sass">
     .modal
@@ -33,10 +35,6 @@
                 margin: auto
                 text-align: center
                 font-family: Montserrat
-        .body
-            // max-height: 50px
-            overflow: auto
-            padding: 10px
         .footer
             width: 100%
             padding: 10px

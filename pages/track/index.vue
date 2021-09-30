@@ -23,11 +23,20 @@
                 </div>
             </div>
         </div>
+
+        <transition name="fade">
+            <ConfirmationModal v-if="showConfirmationModal"/>
+        </transition>
     </div>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+
     export default {
+        components: {
+            ConfirmationModal: () => import('~/components/track/ConfirmationModal'),
+        },
         data: () => ({
             questions: [
                 {
@@ -63,6 +72,9 @@
             ]
         }),
         computed: {
+            ...mapGetters({
+                showConfirmationModal: 'track/getShowConfirmationModal'
+            }),
             computedQuestions () {
                 let activeKey = 0
                 let chosen = false
@@ -113,6 +125,14 @@
                         targetKey = this.computedQuestions.activeKey + 1
                         this.questions[targetKey].active = true
                         this.disableQuestionsExcept(targetKey)
+                        break
+                    case 'submit':
+                        if (!this.computedQuestions.chosen) {
+                            return
+                        }
+                        
+                        this.$store.commit('globals/setShowModal', true)
+                        this.$store.commit('track/setShowConfirmationModal', true)
                         break
                 }
             },
@@ -194,12 +214,11 @@
                     .button
                         font-size: 18px
                         padding: 10px
-                        color: $blue
                         max-width: 150px
                         margin-left: 10px
                         &.disabled
                             opacity: .4
                             cursor: not-allowed
-                        &.submit
+                        &.teal
                             max-width: 180px
 </style>
