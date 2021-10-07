@@ -29,6 +29,11 @@ export default {
         },
       },
     },
+    optimizeDeps: {
+      include: [
+        'cookie'
+      ]
+    }
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -53,6 +58,8 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    //https://auth.nuxtjs.org/
+    '@nuxtjs/auth-next'
   ],
 
   // Style Resources
@@ -86,6 +93,10 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: ["vee-validate/dist/rules"],
+  },
+
+  router: {
+    middleware: ['auth']
   },
 
   server: {

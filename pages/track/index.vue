@@ -187,7 +187,7 @@
                             margin-bottom: 20px
                             font-weight: 700
                             max-width: 500px
-                            width: 500%
+                            width: 100%
                             color: $yellow
                         .choices
                             li

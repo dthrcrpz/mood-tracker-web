@@ -31,7 +31,7 @@
 <style scoped lang="sass">
     .modal
         max-width: 600px
-        margin: 110px ​auto 0
+        margin: 110px auto 0
         .header
             padding: 20px
             .centered-title

@@ -52,6 +52,7 @@
         background-size: cover
         background-position: center
         min-height: 100vh
+        background-color: $blue
 
     *, *:before, *:after
         box-sizing: inherit
