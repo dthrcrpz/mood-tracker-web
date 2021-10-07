@@ -57,11 +57,17 @@
                 </a>
             </div>
         </template>
+        <transition name="fade">
+            <Error :message="errorMessage" v-if="loginError"/>
+        </transition>
     </div>
 </template>
 
 <script>
     export default {
+        components: {
+            Error: () => import('@/components/login/Error')
+        },
         data: () => ({
             action: 'login',
             registerForm: {
@@ -74,7 +80,9 @@
             loginForm: {
                 email: 'johndoe@email.com',
                 password: 'password',
-            }
+            },
+            loginError: false,
+            errorMessage: ''
         }),
         methods: {
             register (valid) {
@@ -98,7 +106,9 @@
                 }).then(res => {
                     console.log(res)
                 }).catch(err => {
-                    console.log(err)
+                    this.loginError = true
+                    this.$store.commit('globals/setShowModal', true)
+                    this.errorMessage = err.response.data.errors[0]
                 })
             },
             fbLogin () {
