@@ -19,6 +19,7 @@
         methods: {
             confirm () {
                 this.close()
+                this.$router.push('/result')
             },
             close () {
                 this.$store.commit('globals/setShowModal', false)
