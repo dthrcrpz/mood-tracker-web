@@ -2,16 +2,30 @@
     <nav>
         <div class="container">
             <div class="col logo-wrapper">
-                <nuxt-link class="logo" to="/">mood-tracker-something</nuxt-link>
+                <nuxt-link class="logo" to="/">mood-tracker</nuxt-link>
             </div>
             <div class="col links-wrapper">
                 <!-- <a href="javascript:void(0)">about me</a> -->
                 <!-- <a href="javascript:void(0)">projects</a> -->
-                <!-- <a href="javascript:void(0)">connect</a> -->
+                <a href="javascript:void(0)" @click="logout()" v-if="$store.state.auth.loggedIn">Logout</a>
             </div>
         </div>
     </nav>
 </template>
+
+<script>
+    export default {
+        methods: {
+            logout () {
+                this.$auth.logout('local').then(res => {
+                    this.$router.push('/login')
+                }).catch(err => {
+                    console.log(err)
+                })
+            }
+        }
+    }
+</script>
 
 <style lang="sass">
     nav

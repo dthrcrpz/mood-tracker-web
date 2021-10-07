@@ -70,7 +70,9 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: process.env.API_URL,
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -97,6 +99,30 @@ export default {
 
   router: {
     middleware: ['auth']
+  },
+
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/'
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'token'
+        },
+        user: {
+          property: 'user'
+        },
+        endpoints: {
+          login: { url: `${process.env.API_URL}users/login`, method: 'post' },
+          logout: { url: `${process.env.API_URL}users/logout`, method: 'post' },
+          user: { url: `${process.env.API_URL}users/user`, method: 'get' }
+        }
+      }
+    }
   },
 
   server: {

@@ -9,11 +9,11 @@
                         <transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
                     </ValidationProvider>
                     <ValidationProvider name="first_name" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true }">
-                        <input type="text" placeholder="First Name" name="first_name" v-model="registerForm.firstName">
+                        <input type="text" placeholder="First Name" name="first_name" v-model="registerForm.first_name">
                         <transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
                     </ValidationProvider>
                     <ValidationProvider name="last_name" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true }">
-                        <input type="text" placeholder="Last Name" name="last_name" v-model="registerForm.lastName">
+                        <input type="text" placeholder="Last Name" name="last_name" v-model="registerForm.last_name">
                         <transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
                     </ValidationProvider>
                     <ValidationProvider name="password" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true }" vid="password">
@@ -65,25 +65,41 @@
         data: () => ({
             action: 'login',
             registerForm: {
-                email: '',
-                firstName: '',
-                lastName: '',
-                password: '',
-                password_confirmation: ''
+                email: 'asta@gmail.com',
+                first_name: 'Asta',
+                last_name: 'Black',
+                password: 'password',
+                password_confirmation: 'password'
             },
             loginForm: {
-                email: '',
-                password: '',
+                email: 'johndoe@email.com',
+                password: 'password',
             }
         }),
         methods: {
             register (valid) {
                 if (valid) {
-                    
+                    this.$axios.post(`users/register`, this.registerForm).then(res => {
+                        this.$auth.loginWith('local', {
+                            data: this.registerForm
+                        }).then(res => {
+                            console.log(res)
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                    }).catch(err => {
+                        console.log(err)
+                    })
                 }
             },
             login () {
-
+                this.$auth.loginWith('local', {
+                    data: this.loginForm
+                }).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
             }
         }
     }
