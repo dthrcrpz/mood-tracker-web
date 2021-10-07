@@ -121,7 +121,14 @@ export default {
           logout: { url: `${process.env.API_URL}users/logout`, method: 'post' },
           user: { url: `${process.env.API_URL}users/user`, method: 'get' }
         }
-      }
+      },
+      facebook: {
+        endpoints: {
+          userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}'
+        },
+        clientId: process.env.FB_APP_ID,
+        scope: ['public_profile', 'email']
+      },
     }
   },
 
