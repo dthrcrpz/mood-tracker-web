@@ -64,6 +64,8 @@
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
+
     export default {
         components: {
             Error: () => import('@/components/login/Error')
@@ -85,8 +87,12 @@
             errorMessage: ''
         }),
         methods: {
+            ...mapMutations({
+                setShowLoading: 'globals/setShowLoading',
+            }),
             register (valid) {
                 if (valid) {
+                    this.setShowLoading(true)
                     this.$axios.post(`users/register`, this.registerForm).then(res => {
                         this.$auth.loginWith('local', {
                             data: this.registerForm
@@ -94,6 +100,7 @@
                             console.log(res)
                         }).catch(err => {
                             console.log(err)
+                            this.setShowLoading(false)
                         })
                     }).catch(err => {
                         console.log(err)
@@ -101,6 +108,7 @@
                 }
             },
             login () {
+                this.setShowLoading(true)
                 this.$auth.loginWith('local', {
                     data: this.loginForm
                 }).then(res => {
@@ -109,11 +117,14 @@
                     this.loginError = true
                     this.$store.commit('globals/setShowModal', true)
                     this.errorMessage = err.response.data.errors[0]
+                }).then(() => {
+                    this.setShowLoading(false)
                 })
             },
             fbLogin () {
                 let me = this
 
+                this.setShowLoading(true)
                 this.fbInit().then(res => {
                     FB.login(res => {
                         if (res.authResponse) {
@@ -121,16 +132,19 @@
                                 let data = res
                                 let token = ''
 
-                                me.$axios.post('api/login/facebook/', data).then(res => {
-                                    console.log(res.data)
+                                me.$axios.post('users/login/facebook/', data).then(res => {
+                                    this.$auth.setUserToken(res.data.token).then(res => {
+                                        console.log(res)
+                                    })
                                 }).catch(err => {
                                     console.log(err)
                                 }).then(() => {
-                                    //
+                                    this.setShowLoading(false)
                                 })
                             })
                         } else {
                             console.log('User cancelled login or did not fully authorize.')
+                            this.setShowLoading(false)
                         }
                     }, {
                         scope: 'public_profile,email'
