@@ -73,15 +73,15 @@
         data: () => ({
             action: 'login',
             registerForm: {
-                email: 'asta@gmail.com',
-                first_name: 'Asta',
-                last_name: 'Black',
-                password: 'password',
-                password_confirmation: 'password'
+                email: '',
+                first_name: '',
+                last_name: '',
+                password: '',
+                password_confirmation: ''
             },
             loginForm: {
-                email: 'johndoe@email.com',
-                password: 'password',
+                email: '',
+                password: '',
             },
             loginError: false,
             errorMessage: ''
