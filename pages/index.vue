@@ -149,7 +149,17 @@
                 })
                 
                 choice.selected = true
+            },
+            getLoggedInUser () {
+                let loggedInUser = this.$auth.user
+                if (loggedInUser.hasOwnProperty('picture')) {
+                    console.log('fb eto')
+                    console.log(loggedInUser)
+                }
             }
+        },
+        mounted () {
+            this.getLoggedInUser()
         }
     }
 </script>

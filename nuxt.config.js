@@ -14,8 +14,11 @@ export default {
       { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true },
       // { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&display=swap' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap' }
-    ]
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Lato:wght@400;900&display=swap' },
+    ],
+    script: [
+      { src: 'https://connect.facebook.net/en_US/sdk.js' }
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -122,14 +125,11 @@ export default {
           user: { url: `${process.env.API_URL}users/user`, method: 'get' }
         }
       },
-      facebook: {
-        endpoints: {
-          userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}'
-        },
-        clientId: process.env.FB_APP_ID,
-        scope: ['public_profile', 'email']
-      },
     }
+  },
+
+  env: {
+    fbAppId: process.env.FB_APP_ID
   },
 
   server: {

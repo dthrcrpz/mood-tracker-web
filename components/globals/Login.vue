@@ -112,10 +112,41 @@
                 })
             },
             fbLogin () {
-                this.$auth.loginWith('facebook').then(res => {
-                    console.log(res)
-                }).catch(err => {
-                    console.log(err)
+                let me = this
+
+                this.fbInit().then(res => {
+                    FB.login(res => {
+                        if (res.authResponse) {
+                            FB.api('/me?fields=email,name,first_name,last_name,picture.width(500)', res => {
+                                let data = res
+                                let token = ''
+
+                                me.$axios.post('api/login/facebook/', data).then(res => {
+                                    console.log(res.data)
+                                }).catch(err => {
+                                    console.log(err)
+                                }).then(() => {
+                                    //
+                                })
+                            })
+                        } else {
+                            console.log('User cancelled login or did not fully authorize.')
+                        }
+                    }, {
+                        scope: 'public_profile,email'
+                    })
+                })
+            },
+            fbInit () {
+                return new Promise((resolve, reject) => {
+                    FB.init({
+                        appId            : process.env.fbAppId,
+                        autoLogAppEvents : true,
+                        xfbml            : true,
+                        version          : 'v12.0'
+                    })
+
+                    resolve('ok')
                 })
             }
         }

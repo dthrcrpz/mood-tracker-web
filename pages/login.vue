@@ -22,7 +22,7 @@
     export default {
         components: {
             Login: () => import('~/components/globals/Login'),
-        },
+        }
     }
 </script>
 
