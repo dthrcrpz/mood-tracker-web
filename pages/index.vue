@@ -12,7 +12,7 @@
                     <div class="wrapper" v-if="computedQuestions.activeKey == key">
                         <p class="question">{{ question.question }}</p>
                         <ol class="choices" type="A">
-                            <li :class="{ 'active': choice.selected }" v-for="(choice, key) in question.choices" :key="key" @click="selectChoice(question, choice)">{{ choice.value }}</li>
+                            <li :class="{ 'active': choice.selected }" v-for="(choice, key) in question.choices" :key="key" @click="selectChoice(question, choice)">{{ choice.choice }}</li>
                         </ol>
                     </div>
                 </div>
@@ -31,45 +31,14 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapMutations } from 'vuex'
 
     export default {
         components: {
             ConfirmationModal: () => import('~/components/track/ConfirmationModal'),
         },
         data: () => ({
-            questions: [
-                {
-                    question: 'Do you feel like killing someone today?',
-                    active: true,
-                    choices: [
-                        { value: 'Super Yes!', selected: false },
-                        { value: 'Kind of', selected: false },
-                        { value: 'No', selected: false },
-                        { value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eos inventore nam labore voluptatibus quas mollitia vero hic nobis esse tempore provident, eum culpa velit, nostrum minima, facilis debitis incidunt.', selected: false },
-                    ]
-                },
-                {
-                    question: 'Are you in the mood to socialize right now?',
-                    active: false,
-                    choices: [
-                        { value: 'Super Yes!', selected: false },
-                        { value: 'Kind of', selected: false },
-                        { value: 'No', selected: false },
-                        { value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur eos inventore nam labore voluptatibus quas mollitia vero hic nobis esse tempore provident, eum culpa velit, nostrum minima, facilis debitis incidunt.', selected: false },
-                    ]
-                },
-                {
-                    question: 'Are doggos cute?',
-                    active: false,
-                    choices: [
-                        { value: 'Of course, the only answer is yes', selected: false },
-                        { value: 'Same with A', selected: false },
-                        { value: 'Are you kidding me?', selected: false },
-                        { value: 'FUCK YES', selected: false },
-                    ]
-                },
-            ]
+            questions: []
         }),
         computed: {
             ...mapGetters({
@@ -108,6 +77,9 @@
             }
         },
         methods: {
+            ...mapMutations({
+                setShowLoading: 'globals/setShowLoading',
+            }),
             navigate (action) {
                 let targetKey = null
 
@@ -150,16 +122,24 @@
                 
                 choice.selected = true
             },
-            getLoggedInUser () {
-                let loggedInUser = this.$auth.user
-                if (loggedInUser.hasOwnProperty('picture')) {
-                    console.log('fb eto')
-                    console.log(loggedInUser)
-                }
+            submit () {
+                this.setShowLoading(true)
+                this.$axios.post(`tracker/submit`, this.questions).then(res => {
+                    console.log(res.data)
+                    this.$router.push('/result')
+                }).catch(err => {
+                    console.log(err)
+                }).then(() => {
+                    this.setShowLoading(false)
+                })
             }
         },
-        mounted () {
-            this.getLoggedInUser()
+        asyncData ({ $axios }) {
+            return $axios.get(`questions`).then(res => {
+                return {
+                    questions: res.data.questions
+                }
+            })
         }
     }
 </script>

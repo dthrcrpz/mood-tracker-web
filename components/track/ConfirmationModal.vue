@@ -18,8 +18,8 @@
     export default {
         methods: {
             confirm () {
+                this.$parent.submit()
                 this.close()
-                this.$router.push('/result')
             },
             close () {
                 this.$store.commit('globals/setShowModal', false)
