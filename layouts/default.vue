@@ -6,6 +6,10 @@
         <transition name="fade">
             <ModalBackground v-if="showModal"/>
         </transition>
+
+        <transition name="fade">
+            <div class="loading" v-if="showLoading"></div>
+        </transition>
     </div>
 </template>
 
@@ -19,7 +23,8 @@
         },
         computed: {
             ...mapGetters({
-                showModal: 'globals/getShowModal'
+                showModal: 'globals/getShowModal',
+                showLoading: 'globals/getShowLoading',
             })
         },
         methods: {
@@ -300,7 +305,7 @@
         right: 0
         left: 0
         bottom: 0
-        background-color: $blue
+        background-color: rgba(0, 18, 32, 0.8)
         max-height: 100vh
         overflow-y: auto
         background-image: url('/loading.svg')
