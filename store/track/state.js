@@ -1,3 +1,4 @@
 export default () => ({
-    showConfirmationModal: false
+    showConfirmationModal: false,
+    results: null
 })

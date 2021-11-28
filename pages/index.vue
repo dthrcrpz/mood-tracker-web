@@ -25,7 +25,7 @@
         </div>
 
         <transition name="fade">
-            <ConfirmationModal v-if="showConfirmationModal"/>
+            <ConfirmationModal v-if="showConfirmationModal" @confirm="submit()"/>
         </transition>
     </div>
 </template>
@@ -79,6 +79,7 @@
         methods: {
             ...mapMutations({
                 setShowLoading: 'globals/setShowLoading',
+                setResults: 'track/setResults'
             }),
             navigate (action) {
                 let targetKey = null
@@ -124,8 +125,11 @@
             },
             submit () {
                 this.setShowLoading(true)
-                this.$axios.post(`tracker/submit`, this.questions).then(res => {
-                    console.log(res.data)
+                this.$axios.post(`tracker/submit`, {
+                    questions: this.questions
+                }).then(res => {
+                    console.log(res.data.result)
+                    this.setResults(res.data.result)
                     this.$router.push('/result')
                 }).catch(err => {
                     console.log(err)

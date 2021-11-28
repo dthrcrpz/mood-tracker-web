@@ -4,5 +4,5 @@ export default {
     },
     setShowLoading (state, payload) {
         state.showLoading = payload
-    },
+    }
 }

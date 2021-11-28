@@ -3,18 +3,24 @@
         <div class="container">
             <div class="texts">
                 <p class="seems">It seems like you are</p>
-                <p class="result negative">HAPPY</p>
+                <p class="result negative">{{ result.result }}</p>
             </div>
-            <div class="assistance">
-                <p>Here are the things you can do to improve your mood:</p>
-                <ul>
-                    <li>Watch some Netflix</li>
-                    <li>Play non-MOBA games</li>
-                </ul>
-            </div>
+            <div class="assistance" v-html="result.remarks"></div>
         </div>
     </div>
 </template>
+
+<script>
+    import { mapGetters } from 'vuex'
+
+    export default {
+        computed: {
+            ...mapGetters({
+                result: 'track/getResults'
+            })
+        }
+    }
+</script>
 
 <style lang="sass" scoped>
     .page-result

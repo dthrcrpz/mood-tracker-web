@@ -18,7 +18,7 @@
     export default {
         methods: {
             confirm () {
-                this.$parent.submit()
+                this.$emit('confirm')
                 this.close()
             },
             close () {
