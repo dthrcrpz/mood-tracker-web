@@ -2,9 +2,9 @@
     <div class="page-history">
         <div class="container">
             <div class="history-wrapper">
-                <div class="history" v-for="(n, key) in 5" :key="key">
-                    <p class="date">(Wednesday) Nov. 5, 2021 - 11:30 PM</p>
-                    <p class="remarks">Happy</p>
+                <div class="history" v-for="(data, key) in history" :key="key">
+                    <p class="date">{{ data.date }}</p>
+                    <p class="remarks">{{ data.result }}</p>
                 </div>
             </div>
         </div>
@@ -17,10 +17,10 @@
             history: null
         }),
         async asyncData ({ $axios }) {
-            history = await $axios.get(`/history`)
+            let data = await $axios.get(`/history`)
 
             return {
-                history: history
+                history: data.data.history
             }
         }
     }
