@@ -18,6 +18,11 @@
             ...mapGetters({
                 result: 'track/getResults'
             })
+        },
+        mounted () {
+            if (this.result == null) {
+                this.$router.push('/')
+            }
         }
     }
 </script>
