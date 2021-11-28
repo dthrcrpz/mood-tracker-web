@@ -4,7 +4,7 @@
             <div class="history-wrapper">
                 <div class="history" v-for="(data, key) in history" :key="key">
                     <p class="date">{{ data.date }}</p>
-                    <p class="remarks">{{ data.result }}</p>
+                    <p class="remarks">{{ data.result.result }}</p>
                 </div>
             </div>
         </div>
