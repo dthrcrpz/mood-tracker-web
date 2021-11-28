@@ -26,7 +26,7 @@
     }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
     .page-history
         margin-top: 30px
         .container
