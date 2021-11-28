@@ -128,7 +128,6 @@
                 this.$axios.post(`tracker/submit`, {
                     questions: this.questions
                 }).then(res => {
-                    console.log(res.data.result)
                     this.setResults(res.data.result)
                     this.$router.push('/result')
                 }).catch(err => {
