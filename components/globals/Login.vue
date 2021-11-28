@@ -30,6 +30,7 @@
                 </form>
             </ValidationObserver>
         </template>
+
         <template v-if="action == 'login'">
             <div class="has-account">Don't have an account yet? <a href="javascript:void(0)" @click="action = 'register'">Click here to Register</a></div>
             <ValidationObserver tag="div" ref="form">
@@ -45,7 +46,7 @@
                     <div class="form-group">
                         <button class="button yellow" type="submit">Login</button>
                     </div>
-                    <a class="forgot-password" href="javascript:void(0)">Forgot Password</a>
+                    <a class="forgot-password" href="javascript:void(0)" @click="action = 'forgot-password'">Forgot Password</a>
                 </form>
             </ValidationObserver>
             <div class="or">or</div>
@@ -57,6 +58,26 @@
                 </a>
             </div>
         </template>
+
+        <template v-if="action == 'forgot-password'">
+            <div class="has-account">Remember your account? <a href="javascript:void(0)" @click="action = 'login'">Click here to Login</a></div>
+            <ValidationObserver tag="div" ref="form">
+                <form @submit.prevent="forgotPassword()">
+                    <ValidationProvider name="email" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true, email: true }">
+                        <input type="text" placeholder="Email" name="email" v-model="forgotPasswordForm.email">
+                        <transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
+                    </ValidationProvider>
+                    <div class="form-group">
+                        <button class="button yellow" type="submit">Submit</button>
+                    </div>
+                </form>
+            </ValidationObserver>
+        </template>
+
+        <template v-if="action == 'email-submitted'">
+            <div class="has-account">Check you email to reset your password</div>
+        </template>
+
         <transition name="fade">
             <Error :message="errorMessage" v-if="loginError"/>
         </transition>
@@ -83,6 +104,9 @@
                 email: '',
                 password: '',
             },
+            forgotPasswordForm: {
+                email: ''
+            },
             loginError: false,
             errorMessage: ''
         }),
@@ -90,6 +114,14 @@
             ...mapMutations({
                 setShowLoading: 'globals/setShowLoading',
             }),
+            forgotPassword (valid) {
+                this.setShowLoading(true)
+                this.$axios('user/forgot-password', this.forgotPasswordForm).then(res => {
+                    console.log(res.data)
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
             register (valid) {
                 if (valid) {
                     this.setShowLoading(true)
