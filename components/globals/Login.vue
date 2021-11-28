@@ -116,8 +116,9 @@
             }),
             forgotPassword (valid) {
                 this.setShowLoading(true)
-                this.$axios('user/forgot-password', this.forgotPasswordForm).then(res => {
-                    console.log(res.data)
+                this.$axios.post('users/forgot-password', this.forgotPasswordForm).then(res => {
+                    this.setShowLoading(false)
+                    this.action = 'email-submitted'
                 }).catch(err => {
                     console.log(err)
                 })
@@ -129,13 +130,15 @@
                         this.$auth.loginWith('local', {
                             data: this.registerForm
                         }).then(res => {
-                            console.log(res)
+                            //
                         }).catch(err => {
                             console.log(err)
                             this.setShowLoading(false)
                         })
                     }).catch(err => {
                         console.log(err)
+                    }).then(() => {
+                        this.setShowLoading(false)
                     })
                 }
             },

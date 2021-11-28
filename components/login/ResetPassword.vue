@@ -64,6 +64,8 @@
                     })
                 }).catch(err => {
                     console.log(err)
+                }).then(() => {
+                    this.setShowLoading(false)
                 })
             }
         }
