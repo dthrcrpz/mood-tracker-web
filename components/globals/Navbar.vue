@@ -9,7 +9,7 @@
                     <img src="/user.svg">
                     <transition name="fade">
                         <div class="options" v-if="showOptions">
-                            <a href="javascript:void(0)">History</a>
+                            <nuxt-link to="/history">History</nuxt-link>
                             <a href="javascript:void(0)" @click="logout()">Logout</a>
                         </div>
                     </transition>
