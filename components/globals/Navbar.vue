@@ -5,9 +5,15 @@
                 <nuxt-link class="logo" to="/">mood-tracker</nuxt-link>
             </div>
             <div class="col links-wrapper">
-                <!-- <a href="javascript:void(0)">about me</a> -->
-                <!-- <a href="javascript:void(0)">projects</a> -->
-                <a href="javascript:void(0)" @click="logout()" v-if="$store.state.auth.loggedIn">Logout</a>
+                <div class="user" v-if="$store.state.auth.loggedIn" @click="showOptions ^= true">
+                    <img src="/user.svg">
+                    <transition name="fade">
+                        <div class="options" v-if="showOptions">
+                            <a href="javascript:void(0)">History</a>
+                            <a href="javascript:void(0)" @click="logout()">Logout</a>
+                        </div>
+                    </transition>
+                </div>
             </div>
         </div>
     </nav>
@@ -15,6 +21,9 @@
 
 <script>
     export default {
+        data: () => ({
+            showOptions: false
+        }),
         methods: {
             logout () {
                 this.$auth.logout('local').then(res => {
@@ -51,7 +60,25 @@
                 &.links-wrapper
                     display: flex
                     align-items: center
-                    a
+                    .user
                         margin-right: 20px
+                        cursor: pointer
+                        position: relative
+                        img
+                            width: 30px
+                        .options
+                            position: absolute
+                            background-color: $teal
+                            right: 0
+                            top: calc(100% + 5px)
+                            a
+                                display: block
+                                color: $blue
+                                padding: 10px 20px
+                                width: 100%
+                                text-align: right
+                                transition: .4s
+                                &:hover
+                                    background-color: $yellow
             
 </style>
