@@ -2,7 +2,7 @@
     <div class="login-form">
         <h2>Reset password</h2><br>
         <ValidationObserver tag="div" ref="form">
-            <form @submit.prevent="login()">
+            <form @submit.prevent="submit()">
                 <ValidationProvider name="password" tag="div" class="form-group" v-slot="{ errors }" :rules="{ required: true }">
                     <input type="password" name="password" placeholder="Password" v-model="resetPasswordForm.password">
                     <transition name="fade"><span class="validation-errors" v-if="errors.length > 0">{{ properFormat(errors[0]) }}</span></transition>
@@ -23,13 +23,25 @@
     import { mapMutations } from 'vuex'
 
     export default {
+        props: {
+            token: {
+                default: null,
+                type: String
+            },
+            user: {
+                default: null,
+                type: Object
+            }
+        },
         components: {
             Error: () => import('@/components/login/Error')
         },
-        data: () => ({
+        data: ({ token, user }) => ({
             resetPasswordForm: {
+                email: user.email,
                 password: '',
                 password_confirmation: '',
+                token: token
             },
         }),
         methods: {
@@ -38,16 +50,20 @@
             }),
             submit () {
                 this.setShowLoading(true)
-                this.$auth.loginWith('local', {
-                    data: this.resetPasswordForm
-                }).then(res => {
-                    console.log(res)
+                this.$axios.post(`users/reset-password`, this.resetPasswordForm).then(res => {
+                        this.$auth.loginWith('local', {
+                        data: this.resetPasswordForm
+                    }).then(res => {
+                        this.$router.push('/')
+                    }).catch(err => {
+                        this.loginError = true
+                        this.$store.commit('globals/setShowModal', true)
+                        this.errorMessage = err.response.data.errors[0]
+                    }).then(() => {
+                        this.setShowLoading(false)
+                    })
                 }).catch(err => {
-                    this.loginError = true
-                    this.$store.commit('globals/setShowModal', true)
-                    this.errorMessage = err.response.data.errors[0]
-                }).then(() => {
-                    this.setShowLoading(false)
+                    console.log(err)
                 })
             }
         }

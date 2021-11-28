@@ -2,7 +2,7 @@
     <div class="page-reset-password">
         <div class="container">
             <div class="form" v-if="valid">
-                <ResetPassword/>
+                <ResetPassword :token="token" :user="user"/>
             </div>
             <div class="error" v-else>
                 Invalid password reset token
@@ -18,13 +18,17 @@
             ResetPassword: () => import('@/components/login/ResetPassword')
         },
         data: () => ({
-            valid: false
+            valid: false,
+            token: null,
+            user: null
         }),
         methods: {
             validateToken () {
                 let token = this.$route.query.token
                 this.$axios.post(`users/validate-password-reset-token/${token}`).then(res => {
                     this.valid = true
+                    this.token = token
+                    this.user = res.data.user
                 }).catch(err => {
                     console.log(err)
                 })
