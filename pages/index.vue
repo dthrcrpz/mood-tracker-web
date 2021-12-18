@@ -1,6 +1,9 @@
 <template>
     <div class="page-track">
         <div class="container">
+            <div class="greetings">
+                Hi {{ $auth.user.first_name }}, let's get started
+            </div>
             <div class="track-box">
                 <div class="progress-container">
                     <div class="numbers">{{ computedQuestions.activeKey + 1 }}/{{ computedQuestions.total }}</div>
@@ -150,6 +153,9 @@
 <style scoped lang="sass">
     .page-track
         .container
+            .greetings
+                margin-top: 40px
+                font-size: 20px
             .track-box
                 margin-top: 40px
                 .progress-container

@@ -9,7 +9,8 @@
                     <img src="/user.svg">
                     <transition name="fade">
                         <div class="options" v-if="showOptions">
-                            <nuxt-link to="/history">History</nuxt-link>
+                            <nuxt-link to="/diary">Diary</nuxt-link>
+                            <nuxt-link to="/history" v-if="$auth.user.hasAnswerGroups">History</nuxt-link>
                             <a href="javascript:void(0)" @click="logout()">Logout</a>
                         </div>
                     </transition>
@@ -78,6 +79,7 @@
                                 width: 100%
                                 text-align: right
                                 transition: .4s
+                                font-weight: 600
                                 &:hover
                                     background-color: $yellow
             
