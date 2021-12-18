@@ -6,9 +6,14 @@
                     <div class="text">Diary</div>
                     <button class="button" @click="setShowAddModal(true)">Add Entry</button>
                 </div>
-                <nuxt-link :to="`/diary/${data.id}`" class="diary" v-for="(data, key) in diary" :key="key">
-                    <p class="date">{{ data.date }}</p>
-                </nuxt-link>
+                <div class="none" v-if="diary.length == 0">
+                    You don't have a diary entry yet. 
+                </div>
+                <template v-else>
+                    <nuxt-link :to="`/diary/${data.id}`" class="diary" v-for="(data, key) in diary" :key="key">
+                        <p class="date">{{ data.date }}</p>
+                    </nuxt-link>
+                </template>
             </div>
         </div>
         <transition name="fade">
