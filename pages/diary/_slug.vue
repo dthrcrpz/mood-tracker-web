@@ -4,19 +4,48 @@
             <div class="diary-wrapper">
                 <div class="title">
                     <div class="text">Diary</div>
-                    <button class="button">Edit Entry</button>
+                    <button class="button" @click="setShowEditModal(true)">Edit Entry</button>
                 </div>
                 <div class="body" v-html="diary.body"></div>
             </div>
         </div>
+        <transition name="fade">
+            <EditModal v-if="showEditModal" :diaryData="diary"/>
+        </transition>
     </div>
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
+
     export default {
+        components: {
+            EditModal: () => import('@/components/diary/EditModal.vue')
+        },
         data: () => ({
-            diary: null
+            diary: null,
+            showEditModal: false,
         }),
+        methods: {
+            ...mapMutations({
+                setShowLoading: 'globals/setShowLoading',
+                setShowModal: 'globals/setShowModal',
+            }),
+            setShowEditModal (value) {
+                this.showEditModal = value
+                this.setShowModal(value)
+            },
+            addEntry (data) {
+                this.setShowLoading(true)
+                this.$axios.post(`diaries`, data).then(res => {
+                    console.log(res.data)
+                }).catch(err => {
+                    console.log(err)
+                }).then(() => {
+                    this.setShowLoading(false)
+                })
+            }
+        },
         async asyncData ({ $axios, params }) {
             let data = await $axios.get(`/diaries/${params.slug}`)
 

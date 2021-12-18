@@ -121,7 +121,6 @@
 
     .page-enter, .page-leave-to
         opacity: 0
-        transform: translateY(50px)
 
     .no-scroll 
         overflow: hidden 

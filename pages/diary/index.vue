@@ -4,24 +4,57 @@
             <div class="diary-wrapper">
                 <div class="title">
                     <div class="text">Diary</div>
-                    <button class="button">Add Entry</button>
+                    <button class="button" @click="setShowAddModal(true)">Add Entry</button>
                 </div>
-                <nuxt-link :to="`/diary/${data.id}`" class="diary" v-for="(data, key) in diary" :key="key">
-                    <p class="date">{{ data.date }}</p>
-                </nuxt-link>
                 <nuxt-link :to="`/diary/${data.id}`" class="diary" v-for="(data, key) in diary" :key="key">
                     <p class="date">{{ data.date }}</p>
                 </nuxt-link>
             </div>
         </div>
+        <transition name="fade">
+            <AddModal v-if="showAddModal"/>
+        </transition>
     </div>
 </template>
 
 <script>
+    import { mapMutations } from 'vuex'
+
     export default {
+        components: {
+            AddModal: () => import('@/components/diary/AddModal.vue')
+        },
         data: () => ({
-            diary: null
+            diary: null,
+            showAddModal: false
         }),
+        methods: {
+            ...mapMutations({
+                setShowLoading: 'globals/setShowLoading',
+                setShowModal: 'globals/setShowModal',
+            }),
+            setShowAddModal (value) {
+                this.showAddModal = value
+                this.setShowModal(value)
+            },
+            fetchDiaries () {
+                this.$axios.get(`/diaries`).then(res => {
+                    this.diary = res.data.diaries
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
+            addEntry (data) {
+                this.setShowLoading(true)
+                this.$axios.post(`diaries`, data).then(res => {
+                    this.fetchDiaries()
+                }).catch(err => {
+                    console.log(err)
+                }).then(() => {
+                    this.setShowLoading(false)
+                })
+            }
+        },
         async asyncData ({ $axios }) {
             let data = await $axios.get(`/diaries`)
 
