@@ -55,6 +55,7 @@
                 margin: auto
                 text-align: center
                 font-family: Montserrat
+                color: $teal
         .body
             // max-height: 50px
             overflow: auto

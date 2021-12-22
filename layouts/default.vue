@@ -50,7 +50,7 @@
         box-sizing: border-box
 
     body
-        color: $teal
+        color: $blue
         font-family: Montserrat
         padding-top: $navHeight
         background-image: url('/images/background.svg')

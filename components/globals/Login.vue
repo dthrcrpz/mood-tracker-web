@@ -165,11 +165,10 @@
                         if (res.authResponse) {
                             FB.api('/me?fields=email,name,first_name,last_name,picture.width(500)', res => {
                                 let data = res
-                                let token = ''
 
                                 me.$axios.post('users/login/facebook/', data).then(res => {
                                     this.$auth.setUserToken(res.data.token).then(res => {
-                                        console.log(res)
+                                        this.$router.push('/')
                                     })
                                 }).catch(err => {
                                     console.log(err)
@@ -228,7 +227,7 @@
         width: 100%
         position: relative
         padding: 0 10px
-        background-color: $blue
+        background-color: #f4faff
         text-align: center
         margin-top: 20px
         &::before

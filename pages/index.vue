@@ -2,7 +2,9 @@
     <div class="page-track">
         <div class="container">
             <div class="greetings">
-                Hi {{ $auth.user.first_name }}, let's get started
+                Hi {{ $auth.user.first_name }}, good day! <br>
+                This application will determine your mood today. Just be honest with your answers and we'll try to determine your mood. <br> 
+                Let's commence.
             </div>
             <div class="track-box">
                 <div class="progress-container">
@@ -192,7 +194,7 @@
                             li
                                 width: 100%
                                 padding: 10px
-                                border: 1px solid $teal
+                                border: 1px solid $blue
                                 border-radius: 10px
                                 margin-bottom: 10px
                                 list-style-position: inside

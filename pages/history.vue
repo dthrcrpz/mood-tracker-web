@@ -36,4 +36,5 @@
                     .remarks
                         color: $yellow
                         font-size: 20px
+                        font-weight: 600
 </style>

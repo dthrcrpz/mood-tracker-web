@@ -11,7 +11,7 @@
                 </div>
                 <template v-else>
                     <nuxt-link :to="`/diary/${data.id}`" class="diary" v-for="(data, key) in diary" :key="key">
-                        <p class="date">{{ data.date }}</p>
+                        <p class="date">{{ $moment(data.date).format('MMMM DD, YYYY - hh:mm:ss A (dddd)') }}</p>
                     </nuxt-link>
                 </template>
             </div>
