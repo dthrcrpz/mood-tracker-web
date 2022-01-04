@@ -2,7 +2,6 @@
     <div class="page-result">
         <div class="container">
             <div class="texts">
-                <p class="seems">It seems like you are</p>
                 <p class="result negative">{{ result.result }}</p>
             </div>
             <div class="assistance" v-html="result.remarks"></div>
