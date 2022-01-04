@@ -2,8 +2,9 @@
     <div class="page-track">
         <div class="container">
             <div class="greetings">
-                Hi {{ $auth.user.first_name }}, good day! <br>
-                This application will determine your mood today. Just be honest with your answers and we'll try to determine your mood. <br> 
+                Hi {{ $auth.user.first_name }}. <br>
+                Welcome to MoodTracker! <br>
+                This application will determine your mood today. Just be honest with your answers and we'll try to figure out your state of mind. <br> 
                 Let's commence.
             </div>
             <div class="track-box">
