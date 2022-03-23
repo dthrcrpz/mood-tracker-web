@@ -160,7 +160,7 @@
                 margin-top: 40px
                 font-size: 20px
             .track-box
-                margin-top: 40px
+                margin: 40px 0 80px 0
                 .progress-container
                     .numbers
                         font-size: 14px
