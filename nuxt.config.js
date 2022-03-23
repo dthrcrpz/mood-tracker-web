@@ -129,8 +129,8 @@ export default {
     }
   },
 
-  env: {
-    fbAppId: process.env.FB_APP_ID
+  privateRuntimeConfig: {
+    FB_APP_ID: process.env.FB_APP_ID
   },
 
   server: {

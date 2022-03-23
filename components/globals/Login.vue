@@ -188,7 +188,7 @@
             fbInit () {
                 return new Promise((resolve, reject) => {
                     FB.init({
-                        appId            : process.env.fbAppId,
+                        appId            : '942053283329790',
                         autoLogAppEvents : true,
                         xfbml            : true,
                         version          : 'v12.0'
