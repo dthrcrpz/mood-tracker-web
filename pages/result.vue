@@ -2,7 +2,7 @@
     <div class="page-result">
         <div class="container">
             <div class="texts">
-                <p class="result negative">{{ result.result }}</p>
+                <p :class="`result ${(result.result == 'POSITIVE MOOD') ? 'positive' : 'negative'}`">{{ result.result }}</p>
             </div>
             <div class="assistance" v-html="result.remarks"></div>
         </div>
@@ -39,7 +39,7 @@
                     font-size: 50px
                     font-weight: 900
                     &.positive
-                        color: $yellow
+                        color: $green
                     &.negative
                         color: $red
             .assistance
