@@ -43,9 +43,9 @@
                 margin: 20px auto 0
                 .label
                     margin-right: 10px
-                    font-size: 20px
+                    font-size: 18px
                 .score
-                    font-size: 25px
+                    font-size: 20px
                     font-weight: 600
             .texts
                 text-align: center
