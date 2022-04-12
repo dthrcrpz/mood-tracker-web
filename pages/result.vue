@@ -1,7 +1,7 @@
 <template>
     <div class="page-result">
         <div class="container">
-            <div class="mood-score">
+            <div class="mood-score" v-if="result">
                 <p class="label">Your mood score: </p>
                 <p class="score">{{ result.score }}%</p>
             </div>

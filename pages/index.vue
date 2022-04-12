@@ -16,6 +16,7 @@
                 </div>
                 <div class="q-a" v-for="(question, key) in questions" :key="key">
                     <div class="wrapper" v-if="computedQuestions.activeKey == key">
+                        <small>Rating: <b>{{ question.rating }}</b></small>
                         <p class="question">{{ question.question }}</p>
                         <ol class="choices" type="A">
                             <li :class="{ 'active': choice.selected }" v-for="(choice, key) in question.choices" :key="key" @click="selectChoice(question, choice)">{{ choice.choice }}</li>
