@@ -1,6 +1,10 @@
 <template>
     <div class="page-result">
         <div class="container">
+            <div class="mood-score">
+                <p class="label">Your mood score: </p>
+                <p class="score">{{ result.score }}%</p>
+            </div>
             <div class="texts">
                 <p :class="`result ${(result.result == 'POSITIVE MOOD') ? 'positive' : 'negative'}`">{{ result.result }}</p>
             </div>
@@ -29,6 +33,20 @@
 <style lang="sass" scoped>
     .page-result
         .container
+            .mood-score
+                width: fit-content
+                display: flex
+                align-items: center
+                border: 1px solid #000
+                color: $blue
+                padding: 10px
+                margin: 20px auto 0
+                .label
+                    margin-right: 10px
+                    font-size: 20px
+                .score
+                    font-size: 25px
+                    font-weight: 600
             .texts
                 text-align: center
                 margin-top: 30px
